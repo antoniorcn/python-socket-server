@@ -1,13 +1,13 @@
 import jpysocket
 import socket
 import time
-# import RPi.GPIO as GPIO
-# from mfrc522 import SimpleMFRC522
+import RPi.GPIO as GPIO
+from mfrc522 import SimpleMFRC522
 
 class DeviceServer:
 
     def __init__(self, port):
-        # self.reader = SimpleMFRC522()
+        self.reader = SimpleMFRC522()
         self.host = 'localhost'  # Host Name
         self.port = port
 
@@ -18,8 +18,8 @@ class DeviceServer:
             print(text)
             return id, text
         finally:
-            pass
-            # GPIO.cleanup()
+            # pass
+            GPIO.cleanup()
 
     def run(self):
         s = socket.socket()  # Create Socket
@@ -39,7 +39,9 @@ class DeviceServer:
             print("Command received:", cmdstr)
             if cmdstr == "READ-RFID":
                 print("Executando leitura do RFID")
-                msgsend = jpysocket.jpyencode("Dados do RFID: 123456")  # Encript The Msg
+                code_id, code_text = self.read_rfid()
+                msgsend = jpysocket.jpyencode("Dados do RFID   Code({})  Text({})".format(code_id, code_text))  # Encript The Msg
+                print(msgsend)
                 connection.send(msgsend)  # Send Msg
             elif cmdstr == "OPEN-DOOR":
                 print("Abrindo a porta")
