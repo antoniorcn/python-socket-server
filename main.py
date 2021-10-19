@@ -33,10 +33,11 @@ class DeviceServer:
         msgsend = jpysocket.jpyencode("Wait for commands")  # Encript The Msg
         connection.send(msgsend)  # Send Msg
         while True:
-            cmdrecv = connection.recv(1024)  # Recieve msg
-            print("Lido :", cmdrecv)
-            cmdstr = jpysocket.jpydecode(cmdrecv)  # Decript msg
-            print("Command received:", cmdstr)
+            # cmdrecv = connection.recv(1024)  # Recieve msg
+            # print("Lido :", cmdrecv)
+            # cmdstr = jpysocket.jpydecode(cmdrecv)  # Decript msg
+            # print("Command received:", cmdstr)
+            cmdstr = "READ-RFID"
             if cmdstr == "READ-RFID":
                 print("Executando leitura do RFID")
                 code_id, code_text = self.read_rfid()
