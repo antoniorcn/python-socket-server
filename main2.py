@@ -16,11 +16,14 @@ class SocketServer:
             con, cliente = tcp.accept()
             print('Concetado por', cliente)
             while True:
-                msg = con.recv(128)
+                texto = input("Informe o ID")
+                texto += "\r\n"
+                con.send(texto.encode())
+                msg = con.recv(1024)
                 if not msg: break
                 print(cliente, str(msg))
                 cmd = msg[2:].decode('utf-8')
-                print("Converted Message =>", cmd)
+                print("Comando recebido =>", cmd)
             print('Finalizando conexao do cliente', cliente)
             con.close()
 

@@ -40,7 +40,7 @@ class DeviceServer:
             if cmdstr == "READ-RFID":
                 print("Executando leitura do RFID")
                 code_id, code_text = self.read_rfid()
-                msgsend = jpysocket.jpyencode("Dados do RFID   Code({})  Text({})".format(code_id, code_text))  # Encript The Msg
+                msgsend = jpysocket.jpyencode(code_text)  # Encript The Msg
                 print(msgsend)
                 connection.send(msgsend)  # Send Msg
             elif cmdstr == "OPEN-DOOR":
